@@ -24,7 +24,7 @@ using namespace testing;
 
 constexpr auto NUMBER = 10'000'000;
 template<typename V = int64_t, typename T = std::mutex>
-	void suma(V & n, T * mutex = nullptr)
+	void suma(V & n, T * mutex)
 	{
 	for(int i = 0; i < NUMBER; ++ i)
 		{
