@@ -33,3 +33,4 @@
 
 # Eclipse platform project files
 .project
+.cproject
