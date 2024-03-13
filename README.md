@@ -7,5 +7,7 @@ This is header only libray + UT under google test.
 This library is under the Apache License Version 2.0.
 Pls. read LICENCE file.
 
-To install type: 'make install'.
 For help type: 'make help'.
+To test type: 'make test'.
+To install type: 'make install'.
+
