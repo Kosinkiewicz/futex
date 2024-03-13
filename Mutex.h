@@ -2,7 +2,10 @@
  * Mutex.h
  *
  *  Created on: Feb 29, 2024
- *      Author: Leszek Kosinkiewicz
+ *      Author: Leszek Kosinkiewicz<kosinkiewicz@gmail.com>
+ *
+ *  this is under the Apache License Version 2.0.
+ *
  */
 #pragma once
 #include "FutexBase.h"

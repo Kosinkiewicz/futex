@@ -2,7 +2,10 @@
  * timeManip.h
  *
  *  Created on: Mar 6, 2024
- *      Author: Leszek Kosinkiewicz
+ *      Author: Leszek Kosinkiewicz<kosinkiewicz@gmail.com>
+ *
+ *  this is under the Apache License Version 2.0.
+ *
  */
 
 #pragma once

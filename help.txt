@@ -25,3 +25,5 @@ make install	[install_path=PATH]
 make uninstall 	[install_path=PATH]
 		remove headers file from PATH - default is /usr/local/include
 
+Author: Leszek Kosinkiewicz<kosinkiewicz@gmail.com>
+this is under the Apache License Version 2.0.
