@@ -33,21 +33,21 @@ namespace futex
 
 			inline uint32_t get() const
 			{
-			return futexVar.load();
+				return futexVar.load();
 			}
 
 			inline int futex(Atomic & futexVar, int futex_op, const uint32_t val, struct timespec * timeout = nullptr) const
 			{
-			const auto ret = syscall(SYS_futex, reinterpret_cast<uint32_t*>( & futexVar), futex_op, val, timeout, nullptr, 0);
-			const auto err = errno;
-			if((ret == - 1) and (err != EAGAIN) and (err != ETIMEDOUT))
+				const auto ret = syscall(SYS_futex, reinterpret_cast<uint32_t*>( & futexVar), futex_op, val, timeout, nullptr, 0);
+				const auto err = errno;
+				if ((ret == - 1) and (err != EAGAIN) and (err != ETIMEDOUT))
 				{
 					constexpr auto SIZE = 256;
 					std::array<char, SIZE> buff;
 					std::string msg = "futex error: " + std::to_string(err) + " @ " + strerror_r(err, buff.data(), SIZE);
 					throw std::runtime_error(msg);
 				}
-			return ret;
+				return ret;
 			}
 	};
 } //namespace futex

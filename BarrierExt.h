@@ -29,9 +29,9 @@ namespace futex
 
 			inline void wait()
 			{
-			futexVar.fetch_add(ONE);
-			uint32_t value;
-			while((value = futexVar.load()) != ZERO)
+				futexVar.fetch_add(ONE);
+				uint32_t value;
+				while((value = futexVar.load()) != ZERO)
 				{
 					futex(futexVar, FUTEX_WAIT, value);
 				}
@@ -40,33 +40,33 @@ namespace futex
 			template<typename clock>
 				bool wait_until(const std::chrono::time_point<clock> & timeoutPoint)
 				{
-				futexVar.fetch_add(ONE);
-				uint32_t value;
-				timespec timeout;
-				auto now = clock::now();
-				while((value = futexVar.load()) != ZERO)
+					futexVar.fetch_add(ONE);
+					uint32_t value;
+					timespec timeout;
+					auto now = clock::now();
+					while((value = futexVar.load()) != ZERO)
 					{
-						if(now > timeoutPoint)
-							{
-								return false;
-							}
+						if (now > timeoutPoint)
+						{
+							return false;
+						}
 						timeout = durationToTimespec(timeoutPoint - now);
 						futex(futexVar, FUTEX_WAIT, value, & timeout);
 						now = clock::now();
 					}
-				return true;
+					return true;
 				}
 
 			template<class clock, class Duration>
 				bool wait_for(const Duration & duration)
 				{
-				return wait_until<clock>(clock::now() + duration);
+					return wait_until<clock>(clock::now() + duration);
 				}
 
 			inline int signal()
 			{
-			futexVar.exchange(ZERO);
-			return futex(futexVar, FUTEX_WAKE, INT32_MAX);
+				futexVar.exchange(ZERO);
+				return futex(futexVar, FUTEX_WAKE, INT32_MAX);
 			}
 	};
 } // namespace futex

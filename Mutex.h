@@ -29,24 +29,24 @@ namespace futex
 
 			inline bool try_lock()
 			{
-			auto value = UNLOCK;
-			return futexVar.compare_exchange_strong(value, LOCK);
+				auto value = UNLOCK;
+				return futexVar.compare_exchange_strong(value, LOCK);
 			}
 
 			inline void lock()
 			{
-			if( not try_lock())
+				if ( not try_lock())
 				{
 					while(futexVar.exchange(LOCK_WAIT) != UNLOCK)
-						{
-							futex(futexVar, FUTEX_WAIT, LOCK_WAIT);
-						};
+					{
+						futex(futexVar, FUTEX_WAIT, LOCK_WAIT);
+					};
 				}
 			}
 
 			inline void unlock()
 			{
-			if(futexVar.exchange(UNLOCK) == LOCK_WAIT)
+				if (futexVar.exchange(UNLOCK) == LOCK_WAIT)
 				{
 					futex(futexVar, FUTEX_WAKE, ONE);
 				}
@@ -55,29 +55,29 @@ namespace futex
 			template<typename clock>
 				bool try_lock_until(const std::chrono::time_point<clock> & timeoutPoint)
 				{
-				while( not try_lock())
+					while( not try_lock())
 					{
 						timespec timeout;
 						auto now = clock::now();
 						while(futexVar.load() != UNLOCK)
+						{
+							if (now > timeoutPoint)
 							{
-								if(now > timeoutPoint)
-									{
-										return false;
-									}
-								futexVar.store(LOCK_WAIT);
-								timeout = durationToTimespec(timeoutPoint - now);
-								futex(futexVar, FUTEX_WAIT, LOCK_WAIT, & timeout);
-								now = clock::now();
+								return false;
 							}
+							futexVar.store(LOCK_WAIT);
+							timeout = durationToTimespec(timeoutPoint - now);
+							futex(futexVar, FUTEX_WAIT, LOCK_WAIT, & timeout);
+							now = clock::now();
+						}
 					}
-				return true;
+					return true;
 				}
 
 			template<class clock, class Duration>
 				bool try_lock_for(const Duration & duration)
 				{
-				return try_lock_until<clock>(clock::now() + duration);
+					return try_lock_until<clock>(clock::now() + duration);
 				}
 	};
 } //namespace futex
