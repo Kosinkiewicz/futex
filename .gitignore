@@ -30,3 +30,6 @@
 *.exe
 *.out
 *.app
+
+# Eclipse platform project files
+.project

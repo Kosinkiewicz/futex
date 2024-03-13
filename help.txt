@@ -1,0 +1,27 @@
+HELP:
+
+make [help|all]
+		print this help.txt file
+
+make clean 
+		remove exe file & obj dir
+
+make futex
+		create gtest for futex
+
+make test [repeat=N] [opt=...]
+		run UT for futex - default for N is 1;
+		examples:
+			test
+			test repeat=100
+			test opt=--gtest_also_run_disabled_tests
+			test repeat=3 opt=--gtest_also_run_disabled_tests
+make opt 
+		display gtest options that can be used as 'opt'
+
+make install	[install_path=PATH]
+		copy headers file into PATH - default is /usr/local/include
+
+make uninstall 	[install_path=PATH]
+		remove headers file from PATH - default is /usr/local/include
+
