@@ -38,7 +38,7 @@ namespace futex
 
 			inline int futex(Atomic & futexVar, int futex_op, const uint32_t val, struct timespec * timeout = nullptr) const
 			{
-				const auto ret = syscall(SYS_futex, reinterpret_cast<uint32_t*>( & futexVar), futex_op, val, timeout, nullptr, 0);
+				const auto ret = syscall(SYS_futex, reinterpret_cast<uint32_t*>( & futexVar), futex_op | FUTEX_PRIVATE_FLAG, val, timeout, nullptr, 0);
 				const auto err = errno;
 				if ((ret == - 1) and (err != EAGAIN) and (err != ETIMEDOUT))
 				{
