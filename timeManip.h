@@ -9,6 +9,7 @@
  */
 
 #pragma once
+#include <ctime>
 #include <chrono>
 namespace
 {
@@ -17,6 +18,7 @@ namespace
 		{
 			const auto secs = std::chrono::duration_cast<std::chrono::seconds>(dur);
 			return
-			{	secs.count(), std::chrono::duration_cast<std::chrono::nanoseconds>(dur - secs).count()};
+			{	static_cast<decltype(timespec::tv_sec)>(secs.count()),
+				static_cast<decltype(timespec::tv_nsec)>(std::chrono::duration_cast<std::chrono::nanoseconds>(dur - secs).count())};
 		}
 } //namespace
