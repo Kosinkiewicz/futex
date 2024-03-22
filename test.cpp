@@ -268,22 +268,22 @@ TEST(FUTEX, LOCK_ON_THE_SAME_THREAD_HUNG_UP_UNLOCK_FORM_OUTSIDE)
 	{
 		mutex.lock();
 		++lockLevel; //1
-			barrier1.wait();
+		barrier1.wait();
 
-			mutex.lock();
-			++lockLevel;//2
-			barrier2.wait();
+		mutex.lock();
+		++lockLevel;//2
+		barrier2.wait();
 
-			mutex.lock();
-			++lockLevel;//3
-			barrier3.wait();
+		mutex.lock();
+		++lockLevel;//3
+		barrier3.wait();
 
-			mutex.lock();
-			++lockLevel;//4
-			barrier4.wait();
+		mutex.lock();
+		++lockLevel;//4
+		barrier4.wait();
 
-			mutex.unlock();
-		};
+		mutex.unlock();
+	};
 
 	std::thread t(lambda);
 	auto i = 0;
